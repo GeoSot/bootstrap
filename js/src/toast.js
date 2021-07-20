@@ -6,7 +6,7 @@
  */
 
 import {
-  defineJQueryPlugin,
+  defineJQueryPlugin, pluginJQueryInterface,
   reflow,
   typeCheckConfig
 } from './util/index'
@@ -216,17 +216,7 @@ class Toast extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Toast.getOrCreateInstance(this, config)
-
-      if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`)
-        }
-
-        data[config](this)
-      }
-    })
+    return pluginJQueryInterface(Toast, config)
   }
 }
 

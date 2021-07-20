@@ -9,7 +9,7 @@ import {
   defineJQueryPlugin,
   getElementFromSelector,
   isDisabled,
-  isVisible,
+  isVisible, pluginJQueryInterface,
   typeCheckConfig
 } from './util/index'
 import ScrollBarHelper from './util/scrollbar'
@@ -211,19 +211,7 @@ class Offcanvas extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Offcanvas.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](this)
-    })
+    return pluginJQueryInterface(Offcanvas, config)
   }
 }
 

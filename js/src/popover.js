@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index'
+import { defineJQueryPlugin, pluginJQueryInterface } from './util/index'
 import SelectorEngine from './dom/selector-engine'
 import Tooltip from './tooltip'
 
@@ -144,17 +144,7 @@ class Popover extends Tooltip {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Popover.getOrCreateInstance(this, config)
-
-      if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`)
-        }
-
-        data[config]()
-      }
-    })
+    return pluginJQueryInterface(Popover, config)
   }
 }
 

@@ -8,7 +8,7 @@
 import {
   defineJQueryPlugin,
   getElementFromSelector,
-  isDisabled,
+  isDisabled, pluginJQueryInterface,
   reflow
 } from './util/index'
 import EventHandler from './dom/event-handler'
@@ -179,17 +179,7 @@ class Tab extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Tab.getOrCreateInstance(this)
-
-      if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`)
-        }
-
-        data[config]()
-      }
-    })
+    return pluginJQueryInterface(Tab, config)
   }
 }
 

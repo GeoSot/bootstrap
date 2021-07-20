@@ -8,7 +8,7 @@
 import {
   defineJQueryPlugin,
   getElementFromSelector,
-  isDisabled
+  isDisabled, pluginJQueryInterface
 } from './util/index'
 import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
@@ -72,19 +72,7 @@ class Alert extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Alert.getOrCreateInstance(this)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](this)
-    })
+    return pluginJQueryInterface(Alert, config)
   }
 }
 

@@ -9,7 +9,7 @@ import {
   defineJQueryPlugin,
   getElementFromSelector,
   isRTL,
-  isVisible,
+  isVisible, pluginJQueryInterface,
   reflow,
   typeCheckConfig
 } from './util/index'
@@ -388,19 +388,7 @@ class Modal extends BaseComponent {
   // Static
 
   static jQueryInterface(config, relatedTarget) {
-    return this.each(function () {
-      const data = Modal.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](relatedTarget)
-    })
+    return pluginJQueryInterface(Modal, config, relatedTarget)
   }
 }
 

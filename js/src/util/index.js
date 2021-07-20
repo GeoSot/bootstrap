@@ -247,6 +247,22 @@ const defineJQueryPlugin = plugin => {
   })
 }
 
+const pluginJQueryInterface = (plugin, config, extraData = null) => {
+  this.each(function () {
+    const data = plugin.getOrCreateInstance(this, config)
+
+    if (typeof config !== 'string') {
+      return
+    }
+
+    if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
+      throw new TypeError(`No method named "${config}"`)
+    }
+
+    data[config](extraData)
+  })
+}
+
 const execute = callback => {
   if (typeof callback === 'function') {
     callback()
@@ -329,6 +345,7 @@ export {
   onDOMContentLoaded,
   isRTL,
   defineJQueryPlugin,
+  pluginJQueryInterface,
   execute,
   executeAfterTransition
 }

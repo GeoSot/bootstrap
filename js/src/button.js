@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index'
+import { defineJQueryPlugin, pluginJQueryInterface } from './util/index'
 import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
 
@@ -49,13 +49,7 @@ class Button extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Button.getOrCreateInstance(this)
-
-      if (config === 'toggle') {
-        data[config]()
-      }
-    })
+    return pluginJQueryInterface(Button, config)
   }
 }
 

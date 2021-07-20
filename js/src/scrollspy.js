@@ -8,7 +8,7 @@
 import {
   defineJQueryPlugin,
   getElement,
-  getSelectorFromElement,
+  getSelectorFromElement, pluginJQueryInterface,
   typeCheckConfig
 } from './util/index'
 import EventHandler from './dom/event-handler'
@@ -256,19 +256,7 @@ class ScrollSpy extends BaseComponent {
   // Static
 
   static jQueryInterface(config) {
-    return this.each(function () {
-      const data = ScrollSpy.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config]()
-    })
+    return pluginJQueryInterface(ScrollSpy, config)
   }
 }
 
